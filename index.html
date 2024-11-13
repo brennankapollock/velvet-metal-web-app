@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Velvet Metal</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script src="https://js-cdn.music.apple.com/musickit/v1/musickit.js"></script>
+<script>
+   document.addEventListener('musickitloaded', function() {
+       // MusicKit global is now defined
+       MusicKit.configure({
+          developerToken: "yeyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjZLVkRTNjc2NVMifQ",
+          app: {
+              name: 'Velvet Metal',
+              build: '1.0'
+          }
+       })
+       let music = MusicKit.getInstance();
+       document.getElementById('login-btn').addEventListener('click', () => {
+          music.authorize().then(function(token) {
+              // do something with token here
+              window.location.href += "?music-user-token=" + encodeURIComponent(token);
+          }).catch (e => {
+             console.log ('Error:' + e );
+          });
+       });
+   });
+</script>
+  </body>
+</html>
